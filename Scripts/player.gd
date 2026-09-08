@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
-
 const SPEED = 100.0
 const RUN_SPEED = 250.0
 const JUMP_VELOCITY = -200.0
+
+const HIT1 = "Hit1"
+const HIT2 = "Hit2"
+const HIT3 = "Hit3"
 
 @onready var anim = $AnimatedSprite2D
 @onready var combo_timer = $"Combo timer"
@@ -36,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 
 	move_and_slide()
-	if anim.animation not in ["Hit1", "Hit2", "Hit3"]: 
+	if anim.animation not in [HIT1, HIT2, HIT3]:
 		if not is_on_floor():
 			if anim.animation != "Jump":
 				anim.play("Jump")
@@ -48,15 +51,15 @@ func _physics_process(delta: float) -> void:
 		else:
 			anim.play("Idle")
 func _input(event: InputEvent) -> void: 
-		if event.is_action_pressed("Attack"):
-			if not is_attacking:
-				combo_step = 1
-				is_attacking = true
-				buffered_attack = false
-				anim.play("Hit1")
-				combo_timer.start()
-			else:
-				buffered_attack = true
+	if event.is_action_pressed("Attack"):
+		if not is_attacking:
+			combo_step = 1
+			is_attacking = true
+			buffered_attack = false
+			anim.play(HIT1)
+			combo_timer.start()
+		else:
+			buffered_attack = true
 			
 func advance_combo() -> void:
 	combo_step += 1
@@ -64,22 +67,20 @@ func advance_combo() -> void:
 		combo_step = 1
 		
 	if combo_step == 1: 
-		anim.play("Hit1")
+		anim.play(HIT1)
 	elif combo_step == 2:
-		anim.play("Hit2")
+		anim.play(HIT2)
 	elif combo_step == 3:
-		anim.play("Hit3")
-
+		anim.play(HIT3)
 	combo_timer.start()
 
 func _on_animation_finished() -> void:
-	if anim.animation in ["Hit1", "Hit2", "Hit3"]:
-		if buffered_attack and combo_step < 3:
+	if anim.animation in [HIT1, HIT2, HIT3]:
+		if buffered_attack:
 			buffered_attack = false
-		advance_combo()
+			advance_combo()
 	else:
 		is_attacking = false
-		buffered_attack = false
 		combo_step = 0
 		anim.play("Idle")
 	
