@@ -1,0 +1,85 @@
+[gd_scene format=4 uid="uid://by7unxagg5uqr"]
+
+[ext_resource type="Texture2D" uid="uid://nwfckgsdfwdh" path="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/fourSeasonsPlatformer_ [tileset, version 2.0]/midground_/desertDungeon_.png" id="1_etk83"]
+[ext_resource type="PackedScene" uid="uid://cpl6uc74n4rgq" path="res://Scenes/Killzone.tscn" id="2_qumfl"]
+[ext_resource type="PackedScene" uid="uid://l4npp4r8f18a" path="res://Scenes/Player.tscn" id="3_r08cw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_00287"]
+texture = ExtResource("1_etk83")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:4/0 = 0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:4/0 = 0
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:5/0 = 0
+2:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:5/0 = 0
+4:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:5/0 = 0
+5:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:6/0 = 0
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:6/0 = 0
+2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:6/0 = 0
+3:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:6/0 = 0
+4:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:6/0 = 0
+5:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_bxqtm"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_00287")
+
+[node name="Map" type="Node2D" unique_id=445740358]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=992770777]
+position = Vector2(534, 281)
+tile_map_data = PackedByteArray("AAD8/wMAAAADAAQAAAD9/wMAAAAEAAQAAAD+/wMAAAAFAAQAAAD//wMAAAADAAQAAAAAAAMAAAAEAAQAAAABAAMAAAAFAAQAAAACAAMAAAADAAQAAAADAAMAAAAEAAQAAAAEAAMAAAAFAAQAAAAGAAMAAAAEAAQAAAAHAAMAAAAFAAQAAAAIAAMAAAADAAQAAAAFAAMAAAADAAQAAAAJAAMAAAAEAAQAAAAKAAMAAAAFAAQAAAAKAAIAAAADAAQAAAALAAIAAAAEAAQAAAAMAAIAAAAFAAQAAAALAAEAAAADAAQAAAAMAAEAAAAEAAQAAAANAAEAAAAFAAQAAAD6/wIAAAABAAUAAAD6/wMAAAABAAYAAAD7/wIAAAACAAUAAAD7/wMAAAACAAYAAAD4/wEAAAABAAUAAAD4/wIAAAABAAYAAAD5/wEAAAACAAUAAAD5/wIAAAACAAYAAAD7/wAAAAABAAQAAAD8/wAAAAACAAQAAAD9////AAABAAQAAAD+////AAACAAQAAAD/////AAABAAQAAAAAAP//AAACAAQAAAABAP7/AAABAAQAAAACAP7/AAACAAQAAAADAP//AAABAAQAAAAEAP//AAACAAQAAAAFAP//AAABAAQAAAAGAP//AAACAAQAAAAHAP//AAABAAQAAAAIAP//AAACAAQAAAAJAAAAAAAAAAQAAAA=")
+tile_set = SubResource("TileSet_bxqtm")
+
+[node name="Killzone" parent="." unique_id=711357132 instance=ExtResource("2_qumfl")]
+position = Vector2(339, 265)
+
+[node name="Player" parent="." unique_id=1941826807 instance=ExtResource("3_r08cw")]
+position = Vector2(453, 289)
