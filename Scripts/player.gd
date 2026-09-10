@@ -3,24 +3,30 @@ extends CharacterBody2D
 const SPEED = 100.0
 const RUN_SPEED = 200.0
 const JUMP_VELOCITY = -200.0
-
+const DAMAGE = 10
 const HIT1 = "Hit1"
-const HIT2 = "Hit2"
-const HIT3 = "Hit3"
+
 
 @onready var anim = $AnimatedSprite2D
-@onready var combo_timer = $"Combo timer"
-var combo_step = 0
-var is_attacking = false
-var buffered_attack = false
-func _ready() -> void: 
-	combo_timer.timeout.connect(_reset_combo)
-	anim.animation_finished.connect(_on_animation_finished)
+@onready var hitbox = $HitBox
+@onready var hitbox_shape = $HitBox/CollisionShape2D
+
+var attacking := false
+
+func _ready() -> void:
+	hitbox_shape.disabled = true
+	anim.animation_finished.connect(_on_anim_finished)
+	hitbox.body_entered.connect(_on_hitbox_body_entered)
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	# Iniciar ataque (una sola vez por pulsación, y solo si no está atacando)
+	if Input.is_action_just_pressed("Attack") and not attacking:
+		attack()
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -30,63 +36,49 @@ func _physics_process(delta: float) -> void:
 	var current_speed = SPEED
 	if Input.is_action_pressed("correr"):
 		current_speed = RUN_SPEED
-	# As good practice, you should replace UI actions with custom gameplay actions.
+
 	var direction := Input.get_axis("izquierda", "derecha")
 	if direction:
 		velocity.x = direction * current_speed
-		anim.flip_h=direction<0
+		anim.flip_h = direction < 0
+		hitbox.scale.x = -1 if anim.flip_h else 1
 	else:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 
 	move_and_slide()
-	if anim.animation not in [HIT1, HIT2, HIT3]:
-		if not is_on_floor():
-			if anim.animation != "Jump":
-				anim.play("Jump")
-		elif direction != 0:
+
+	# Mientras ataca, no pisar la animación de golpe con Idle/Walk/Run/Jump
+	if attacking:
+		return
+
+	if not is_on_floor():
+		if anim.animation != "Jump":
+			anim.play("Jump")
+	else:
+		if direction != 0:
 			if Input.is_action_pressed("correr"):
 				anim.play("Run")
-			else: 
+			else:
 				anim.play("Walk")
 		else:
 			anim.play("Idle")
-func _input(event: InputEvent) -> void: 
-	if event.is_action_pressed("Attack"):
-		if not is_attacking:
-			combo_step = 1
-			is_attacking = true
-			buffered_attack = false
-			anim.play(HIT1)
-			combo_timer.start()
-		else:
-			buffered_attack = true
-			
-func advance_combo() -> void:
-	combo_step += 1
-	if combo_step > 3:
-		combo_step = 1
-		
-	if combo_step == 1: 
-		anim.play(HIT1)
-	elif combo_step == 2:
-		anim.play(HIT2)
-	elif combo_step == 3:
-		anim.play(HIT3)
-	combo_timer.start()
 
-func _on_animation_finished() -> void:
-	if anim.animation in [HIT1, HIT2, HIT3]:
-		if buffered_attack:
-			buffered_attack = false
-			advance_combo()
-	else:
-		is_attacking = false
-		combo_step = 0
-		anim.play("Idle")
-	
-func _reset_combo() -> void:
-		combo_step = 0
-		is_attacking = false
-		buffered_attack = false 
-	
-	
+
+func attack() -> void:
+	print("Atacando")
+	attacking = true
+	anim.play(HIT1)
+	hitbox_shape.disabled = false
+
+
+func _on_anim_finished() -> void:
+	print("_on_anim_finished")
+	if anim.animation == HIT1:
+		print("Termino Ataque")
+		attacking = false
+		hitbox_shape.disabled = true
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemigos") and body.has_method("take_damage"):
+		body.take_damage(DAMAGE)

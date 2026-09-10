@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://nwfckgsdfwdh" path="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/fourSeasonsPlatformer_ [tileset, version 2.0]/midground_/desertDungeon_.png" id="1_etk83"]
 [ext_resource type="PackedScene" uid="uid://cpl6uc74n4rgq" path="res://Scenes/Killzone.tscn" id="2_qumfl"]
 [ext_resource type="PackedScene" uid="uid://l4npp4r8f18a" path="res://Scenes/Player.tscn" id="3_r08cw"]
+[ext_resource type="PackedScene" uid="uid://hbnctclq68qb" path="res://Scenes/enemy.tscn" id="4_qumfl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_00287"]
 texture = ExtResource("1_etk83")
@@ -83,3 +84,6 @@ position = Vector2(339, 265)
 
 [node name="Player" parent="." unique_id=1941826807 instance=ExtResource("3_r08cw")]
 position = Vector2(453, 289)
+
+[node name="Enemy" parent="." unique_id=1970158740 instance=ExtResource("4_qumfl")]
+position = Vector2(596, 332)
