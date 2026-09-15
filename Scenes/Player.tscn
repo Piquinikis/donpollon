@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://cv2tlr6pmw08a" path="res://Assets/Jugador/standard/walk.png" id="6_bhhdu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nuxv"]
-size = Vector2(8, 11)
+size = Vector2(12, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxqtm"]
-size = Vector2(6.6757813, 14.3125)
+size = Vector2(6.6757813, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_utwlt"]
 atlas = ExtResource("2_nn08x")
@@ -257,21 +257,19 @@ script = ExtResource("1_kyqiw")
 [node name="HitBox" type="Area2D" parent="." unique_id=1578921854]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1736777236]
-position = Vector2(99, 29)
+[node name="ShapeGolpeEnemigo" type="CollisionShape2D" parent="HitBox" unique_id=1736777236]
+position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_5nuxv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1620488231]
-position = Vector2(92, 29)
+[node name="ShapeGolpeRecibido" type="CollisionShape2D" parent="." unique_id=1620488231]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_bxqtm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=689818808]
-position = Vector2(92, 28)
 scale = Vector2(0.26785228, 0.26785228)
 sprite_frames = SubResource("SpriteFrames_bxqtm")
 animation = &"Hit1"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=962807938]
-position = Vector2(92, 29)
 zoom = Vector2(5, 5)

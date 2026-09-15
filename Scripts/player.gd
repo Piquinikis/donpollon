@@ -6,33 +6,35 @@ const JUMP_VELOCITY = -200.0
 const DAMAGE = 10
 const HIT1 = "Hit1"
 
-
 @onready var anim = $AnimatedSprite2D
 @onready var hitbox = $HitBox
-@onready var hitbox_shape = $HitBox/CollisionShape2D
+@onready var hitbox_shape = $HitBox/ShapeGolpeEnemigo
 
 var attacking := false
+var facing_direction := 1  # 1 = derecha, -1 = izquierda
+var hitbox_base_offset: float  # distancia original del hitbox al personaje
+
 
 func _ready() -> void:
-	hitbox_shape.disabled = true
+	hitbox_shape.set_deferred("disabled", true)
 	anim.animation_finished.connect(_on_anim_finished)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 
+	# Guardamos la distancia real del CollisionShape2, no la del HitBox
+	hitbox_base_offset = abs(hitbox_shape.position.x)
+	_update_facing()
+
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Iniciar ataque (una sola vez por pulsación, y solo si no está atacando)
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		attack()
 
-	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
 	var current_speed = SPEED
 	if Input.is_action_pressed("correr"):
 		current_speed = RUN_SPEED
@@ -40,14 +42,15 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("izquierda", "derecha")
 	if direction:
 		velocity.x = direction * current_speed
-		anim.flip_h = direction < 0
-		hitbox.scale.x = -1 if anim.flip_h else 1
+
+		if not attacking:
+			facing_direction = 1 if direction > 0 else -1
+			_update_facing()
 	else:
 		velocity.x = move_toward(velocity.x, 0, current_speed)
 
 	move_and_slide()
 
-	# Mientras ataca, no pisar la animación de golpe con Idle/Walk/Run/Jump
 	if attacking:
 		return
 
@@ -56,27 +59,30 @@ func _physics_process(delta: float) -> void:
 			anim.play("Jump")
 	else:
 		if direction != 0:
-			if Input.is_action_pressed("correr"):
-				anim.play("Run")
-			else:
-				anim.play("Walk")
+			anim.play("Run" if Input.is_action_pressed("correr") else "Walk")
 		else:
 			anim.play("Idle")
 
 
+func _update_facing() -> void:
+	print("Antes: ", hitbox_shape.position.x)
+	anim.flip_h = facing_direction < 0
+	# Movemos el CollisionShape2 (el que tiene el offset real), no el HitBox
+	hitbox_shape.position.x = hitbox_base_offset * facing_direction
+	print("Despues: ", hitbox_shape.position.x)
+
+
 func attack() -> void:
-	print("Atacando")
 	attacking = true
+	_update_facing()
 	anim.play(HIT1)
-	hitbox_shape.disabled = false
+	hitbox_shape.set_deferred("disabled", false)
 
 
 func _on_anim_finished() -> void:
-	print("_on_anim_finished")
 	if anim.animation == HIT1:
-		print("Termino Ataque")
 		attacking = false
-		hitbox_shape.disabled = true
+		hitbox_shape.set_deferred("disabled", true)
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:

@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bs3rttswfdfgs" path="res://Assets/Bandido/custom/thrust_oversize.png" id="2_287tu"]
 [ext_resource type="Texture2D" uid="uid://5p88wvx4srkd" path="res://Assets/Bandido/standard/hurt.png" id="2_ghaa6"]
 [ext_resource type="Texture2D" uid="uid://b5rjll7711vqn" path="res://Assets/Bandido/standard/walk.png" id="3_0830c"]
+[ext_resource type="Texture2D" uid="uid://dmjenw8ovhriv" path="res://Assets/Bandido/standard/spellcast.png" id="5_ghaa6"]
+[ext_resource type="Texture2D" uid="uid://bpi46ojjicbh1" path="res://Assets/Bandido/standard/idle.png" id="6_1dp5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00jfg"]
 size = Vector2(9, 16.5)
@@ -88,6 +90,30 @@ region = Rect2(1152, 576, 192, 192)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dhkrs"]
 atlas = ExtResource("2_287tu")
 region = Rect2(1344, 576, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0iv8"]
+atlas = ExtResource("5_ghaa6")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1gwg"]
+atlas = ExtResource("5_ghaa6")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mxp7"]
+atlas = ExtResource("5_ghaa6")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a56t"]
+atlas = ExtResource("5_ghaa6")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6sir"]
+atlas = ExtResource("6_1dp5w")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ej4m"]
+atlas = ExtResource("6_1dp5w")
+region = Rect2(64, 192, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xdhn"]
 atlas = ExtResource("3_0830c")
@@ -204,6 +230,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_q0iv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1gwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mxp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a56t")
+}],
+"loop": 0,
+"name": &"Hurt_E",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6sir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ej4m")
+}],
+"loop": 1,
+"name": &"Idle_E",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5xdhn")
 }, {
 "duration": 1.0,
@@ -247,4 +301,6 @@ shape = SubResource("RectangleShape2D_00jfg")
 position = Vector2(-20.5, -21.874998)
 scale = Vector2(0.328125, 0.31640622)
 sprite_frames = SubResource("SpriteFrames_5a57a")
-animation = &"Walk_E"
+animation = &"Idle_E"
+autoplay = "Idle_E"
+frame_progress = 0.32123542
