@@ -1,4 +1,3 @@
-# (Copia este código completo para tu Jugador)
 extends CharacterBody2D
 
 const SPEED = 100.0
@@ -11,6 +10,8 @@ const HIT1 = "Hit1"
 @onready var anim = $AnimatedSprite2D
 @onready var hitbox = $HitBox
 @onready var hitbox_shape = $HitBox/ShapeGolpeEnemigo
+
+@export var health_bar: TextureProgressBar
 
 var health := MAX_HEALTH
 var dead := false
@@ -27,6 +28,10 @@ func _ready() -> void:
 	# Guardamos la distancia real del CollisionShape
 	hitbox_base_offset = abs(hitbox_shape.position.x)
 	_update_facing()
+
+	if health_bar:
+		health_bar.max_value = MAX_HEALTH
+		health_bar.value = health
 
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +88,7 @@ func attack() -> void:
 	_update_facing()
 	anim.play(HIT1)
 	hitbox_shape.set_deferred("disabled", false)
-	
+
 	# Por si el enemigo ya estaba pegado al jugador al presionar atacar
 	await get_tree().process_frame
 	if attacking:
@@ -94,17 +99,35 @@ func attack() -> void:
 func take_damage(amount: int) -> void:
 	if dead:
 		return
-		
+
 	health -= amount
+	health = max(health, 0)
 	print("¡Jugador recibió ", amount, " de daño! Vida restante: ", health)
-	
+
+	if health_bar:
+		var bar_tween = create_tween()
+		bar_tween.tween_property(health_bar, "value", health, 0.2)
+
 	# Efecto visual rápido de parpadeo rojo
 	var tween = create_tween()
 	tween.tween_property(anim, "modulate", Color.RED, 0.1)
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.1)
-	
+
 	if health <= 0:
 		die()
+
+
+func heal(amount: int) -> void:
+	if dead:
+		return
+
+	health += amount
+	health = min(health, MAX_HEALTH)
+	print("¡Jugador recuperó ", amount, " de vida! Vida actual: ", health)
+
+	if health_bar:
+		var bar_tween = create_tween()
+		bar_tween.tween_property(health_bar, "value", health, 0.2)
 
 
 func die() -> void:

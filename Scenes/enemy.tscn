@@ -287,7 +287,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id8n8"]
-size = Vector2(8, 16)
+size = Vector2(8, 15)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=437515058 groups=["enemigos"]]
 script = ExtResource("1_mo1ky")
@@ -300,5 +300,5 @@ animation = &"Death_E"
 autoplay = "Idle_E"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2103139405]
-position = Vector2(0, 2)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_id8n8")
