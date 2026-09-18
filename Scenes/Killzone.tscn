@@ -3,12 +3,39 @@
 [ext_resource type="Script" uid="uid://byq8wlam66deg" path="res://Scripts/killzone.gd" id="1_dviv5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxqtm"]
-size = Vector2(523, 20)
+size = Vector2(1686.5, 20)
 
 [node name="Killzone" type="Area2D" unique_id=711357132]
+position = Vector2(424, -620)
 script = ExtResource("1_dviv5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=448404041]
+position = Vector2(580.75, 51)
 shape = SubResource("RectangleShape2D_bxqtm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1224539687]
+
+[node name="PantallaNegra" type="ColorRect" parent="CanvasLayer" unique_id=222671927]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/PantallaNegra" unique_id=488013651]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -398.0
+offset_top = -55.5
+offset_right = 398.0
+offset_bottom = 55.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 39
+text = "¡GAME OVER!
+REAPPEARING AT THE START OF THE LEVEL"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

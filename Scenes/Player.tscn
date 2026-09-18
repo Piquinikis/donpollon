@@ -326,6 +326,7 @@ autoplay = "Idle"
 zoom = Vector2(5, 5)
 
 [node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1712161339]
+z_index = 2
 offset_left = -111.0
 offset_top = -60.0
 offset_right = -51.571438
