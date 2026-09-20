@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5ye6gid8ho2b"
-path="res://.godot/imported/heart_full.png-4c9f4565bee3d30c7172028515ed9c4e.ctex"
+uid="uid://dgt7pa5tekp25"
+path="res://.godot/imported/lava_frame2.png-cc3581ec87394173b69dd00c65bbc024.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/heart_full.png"
-dest_files=["res://.godot/imported/heart_full.png-4c9f4565bee3d30c7172028515ed9c4e.ctex"]
+source_file="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/lava_frame2.png"
+dest_files=["res://.godot/imported/lava_frame2.png-cc3581ec87394173b69dd00c65bbc024.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwnxt17d4k4os"
-path="res://.godot/imported/healthbar_hearts_empty.png-bc9c9371ad507e8a777895d6a5e3f081.ctex"
+uid="uid://bfu3wr5s52hn3"
+path="res://.godot/imported/run.png-8d7d34aeaa59dc5fda15ec0485bebe48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/healthbar_hearts_empty.png"
-dest_files=["res://.godot/imported/healthbar_hearts_empty.png-bc9c9371ad507e8a777895d6a5e3f081.ctex"]
+source_file="res://Assets/Esqueleto/standard/run.png"
+dest_files=["res://.godot/imported/run.png-8d7d34aeaa59dc5fda15ec0485bebe48.ctex"]
 
 [params]
 

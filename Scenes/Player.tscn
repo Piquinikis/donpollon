@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://drwdnhuak1xqx" path="res://Assets/Jugador/standard/jump.png" id="4_nn08x"]
 [ext_resource type="Texture2D" uid="uid://c1h6ikht2von5" path="res://Assets/Jugador/standard/run.png" id="5_52ee3"]
 [ext_resource type="Texture2D" uid="uid://cv2tlr6pmw08a" path="res://Assets/Jugador/standard/walk.png" id="6_bhhdu"]
-[ext_resource type="Texture2D" uid="uid://bwnxt17d4k4os" path="res://Assets/healthbar_hearts_empty.png" id="8_yoq75"]
-[ext_resource type="Texture2D" uid="uid://csywdal2iolxo" path="res://Assets/healthbar_hearts_frame.png" id="9_ksbbd"]
-[ext_resource type="Texture2D" uid="uid://be8k3o1je0xhu" path="res://Assets/healthbar_hearts_full.png" id="10_glx4g"]
+[ext_resource type="Texture2D" uid="uid://bwnxt17d4k4os" path="res://Assets/Barras de vida/healthbar_hearts_empty.png" id="8_yoq75"]
+[ext_resource type="Texture2D" uid="uid://csywdal2iolxo" path="res://Assets/Barras de vida/healthbar_hearts_frame.png" id="9_ksbbd"]
+[ext_resource type="Texture2D" uid="uid://be8k3o1je0xhu" path="res://Assets/Barras de vida/healthbar_hearts_full.png" id="10_glx4g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nuxv"]
 size = Vector2(12, 11)
@@ -304,7 +304,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=1941826807 node_paths=PackedStringArray("health_bar") groups=["Player"]]
 script = ExtResource("1_kyqiw")
-health_bar = NodePath("HealthBar")
+health_bar = NodePath("UILayer/HealthBar")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1578921854]
 
@@ -325,13 +325,42 @@ autoplay = "Idle"
 [node name="Camera2D" type="Camera2D" parent="." unique_id=962807938]
 zoom = Vector2(5, 5)
 
-[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1712161339]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=203243427]
+
+[node name="HealthBar" type="TextureProgressBar" parent="UILayer" unique_id=1712161339]
 z_index = 2
-offset_left = -111.0
-offset_top = -60.0
-offset_right = -51.571438
-offset_bottom = -52.0
+offset_left = 59.0
+offset_top = 49.0
+offset_right = 333.85706
+offset_bottom = 86.0
 nine_patch_stretch = true
 texture_under = ExtResource("8_yoq75")
 texture_over = ExtResource("9_ksbbd")
 texture_progress = ExtResource("10_glx4g")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=483142778]
+
+[node name="PantallaNegra" type="ColorRect" parent="CanvasLayer" unique_id=724537843]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/PantallaNegra" unique_id=331394020]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -24.5
+offset_right = 163.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 39
+text = "                            ¡GAME OVER!
+REAPPEARING AT THE START OF THE LEVEL"

@@ -6,7 +6,6 @@
 size = Vector2(1686.5, 20)
 
 [node name="Killzone" type="Area2D" unique_id=711357132]
-position = Vector2(424, -620)
 script = ExtResource("1_dviv5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=448404041]
@@ -35,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 39
-text = "¡GAME OVER!
+text = "                            ¡GAME OVER!
 REAPPEARING AT THE START OF THE LEVEL"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

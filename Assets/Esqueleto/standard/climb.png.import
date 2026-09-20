@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkj1hbb3k0hwq"
-path="res://.godot/imported/healthbar_frame.png-f14d6423fba55d57b4fbb2a719c187ce.ctex"
+uid="uid://bq2bsxxe1njsd"
+path="res://.godot/imported/climb.png-7bf256302ce0c416399c6b332918f21e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/healthbar_frame.png"
-dest_files=["res://.godot/imported/healthbar_frame.png-f14d6423fba55d57b4fbb2a719c187ce.ctex"]
+source_file="res://Assets/Esqueleto/standard/climb.png"
+dest_files=["res://.godot/imported/climb.png-7bf256302ce0c416399c6b332918f21e.ctex"]
 
 [params]
 

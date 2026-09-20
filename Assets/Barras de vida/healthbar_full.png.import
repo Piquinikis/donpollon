@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be8k3o1je0xhu"
-path="res://.godot/imported/healthbar_hearts_full.png-4e2044eac094b5f3002726e3e1026e2c.ctex"
+uid="uid://cqjf6b0qo2l1m"
+path="res://.godot/imported/healthbar_full.png-219aeabccc0622b5452d8f626bb7e9bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/healthbar_hearts_full.png"
-dest_files=["res://.godot/imported/healthbar_hearts_full.png-4e2044eac094b5f3002726e3e1026e2c.ctex"]
+source_file="res://Assets/Barras de vida/healthbar_full.png"
+dest_files=["res://.godot/imported/healthbar_full.png-219aeabccc0622b5452d8f626bb7e9bc.ctex"]
 
 [params]
 

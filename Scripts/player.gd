@@ -12,6 +12,7 @@ const HIT1 = "Hit1"
 @onready var hitbox_shape = $HitBox/ShapeGolpeEnemigo
 
 @export var health_bar: TextureProgressBar
+@onready var pantalla_negra = $CanvasLayer/PantallaNegra 
 
 var health := MAX_HEALTH
 var dead := false
@@ -19,11 +20,19 @@ var attacking := false
 var facing_direction := 1  # 1 = derecha, -1 = izquierda
 var hitbox_base_offset: float  # distancia original del hitbox al personaje
 
+# Variables para el control de la lava
+var esta_en_lava := false
+var velocidad_hundimiento_actual := 0.0
+
 
 func _ready() -> void:
 	hitbox_shape.set_deferred("disabled", true)
 	anim.animation_finished.connect(_on_anim_finished)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
+
+	# Aseguramos que la pantalla negra arranque invisible al iniciar
+	if pantalla_negra:
+		pantalla_negra.modulate.a = 0
 
 	# Guardamos la distancia real del CollisionShape
 	hitbox_base_offset = abs(hitbox_shape.position.x)
@@ -35,6 +44,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Si está atrapado en la lava, se hunde lentamente y no puede saltar ni moverse
+	if esta_en_lava:
+		velocity.x = 0
+		velocity.y = velocidad_hundimiento_actual
+		move_and_slide()
+		return
+
 	if dead:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		move_and_slide()
@@ -102,7 +118,7 @@ func take_damage(amount: int) -> void:
 
 	health -= amount
 	health = max(health, 0)
-	print("¡Jugador recibió ", amount, " de daño! Vida restante: ", health)
+	
 
 	if health_bar:
 		var bar_tween = create_tween()
@@ -123,7 +139,7 @@ func heal(amount: int) -> void:
 
 	health += amount
 	health = min(health, MAX_HEALTH)
-	print("¡Jugador recuperó ", amount, " de vida! Vida actual: ", health)
+	
 
 	if health_bar:
 		var bar_tween = create_tween()
@@ -131,21 +147,43 @@ func heal(amount: int) -> void:
 
 
 func die() -> void:
+	if dead:
+		return
+		
 	dead = true
 	velocity.x = 0
 	attacking = false
 	hitbox_shape.set_deferred("disabled", true)
 	anim.play("Death") # Reproduce la animación de muerte limpia
-	print("El jugador ha muerto")
+	
+
+	# 1. Hacemos aparecer la pantalla negra suavemente con un tween
+	if pantalla_negra:
+		var tween = create_tween()
+		tween.tween_property(pantalla_negra, "modulate:a", 1.0, 0.5)
+
+	# 2. Esperamos 2 segundos para que se lea el mensaje o se aprecie la animación
+	await get_tree().create_timer(2.0).timeout
+
+	# 3. Reiniciamos el nivel actual automáticamente
+	get_tree().reload_current_scene()
+
+
+# Funciones para la interacción con la lava
+func hundir_en_lava(velocidad: float) -> void:
+	esta_en_lava = true
+	velocidad_hundimiento_actual = velocidad
+	velocity.x = 0
+
+
+func salir_de_lava() -> void:
+	esta_en_lava = false
 
 
 func _on_anim_finished() -> void:
 	if anim.animation == HIT1:
 		attacking = false
 		hitbox_shape.set_deferred("disabled", true)
-	elif anim.animation == "Death":
-		# Pausamos en el último frame de la muerte para que no se repita
-		anim.pause()
 
 
 func _on_hitbox_body_entered(body: Node2D) -> void:

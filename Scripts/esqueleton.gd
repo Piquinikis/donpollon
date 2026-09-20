@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const MAX_HEALTH = 50
-const DEATH_ANIM = "Death_E"
+const DEATH_ANIM = "Death_ES"
 const SPEED = 40.0
 const ATTACK_RANGE = 15.0
 const DAMAGE_AMOUNT = 10
@@ -20,7 +20,7 @@ var player: CharacterBody2D = null
 
 func _ready() -> void:
 	anim.animation_finished.connect(_on_anim_finished)
-	anim.play("Idle_E")
+	anim.play("Idle_ES")
 	
 	# Busca al jugador por su grupo
 	var players = get_tree().get_nodes_in_group("Player")
@@ -53,11 +53,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			# Caminar hacia el jugador
 			velocity.x = direction.x * SPEED
-			anim.play("Walk_E")
+			anim.play("Walk_ES")
 	else:
 		# Si el jugador murió o no está, frena y se queda en Idle
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		anim.play("Idle_E")
+		anim.play("Idle_ES")
 
 	move_and_slide()
 
@@ -66,10 +66,8 @@ func attack() -> void:
 	is_attacking = true
 	velocity.x = 0
 	
-	# Selecciona aleatoriamente entre Hit1_E y Hit2_E
-	var attack_anims = ["Hit1_E", "Hit2_E"]
-	var selected_anim = attack_anims[randi() % attack_anims.size()]
-	anim.play(selected_anim)
+	# Solo tiene un ataque, lo ejecutamos directamente
+	anim.play("Hit_ES")
 
 
 func deal_damage_to_player() -> void:
@@ -85,8 +83,7 @@ func take_damage(amount: int) -> void:
 		
 	health -= amount
 	
-	
-	# Efecto visual rápido de parpadeo rojo (igual que el jugador)
+	# Efecto visual rápido de parpadeo rojo
 	var tween = create_tween()
 	tween.tween_property(anim, "modulate", Color.RED, 0.1)
 	tween.tween_property(anim, "modulate", Color.WHITE, 0.1)
@@ -96,7 +93,7 @@ func take_damage(amount: int) -> void:
 	else:
 		is_hurting = true
 		is_attacking = false 
-		anim.play("Hurt_E")
+		anim.play("Hurt_ES")
 
 
 func die() -> void:
@@ -109,10 +106,10 @@ func die() -> void:
 
 func _on_anim_finished() -> void:
 	match anim.animation:
-		"Hit1_E", "Hit2_E":
+		"Hit_ES":
 			deal_damage_to_player() 
 			is_attacking = false
-		"Hurt_E":
+		"Hurt_ES":
 			is_hurting = false
 		DEATH_ANIM:
 			queue_free()

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqjf6b0qo2l1m"
-path="res://.godot/imported/healthbar_full.png-1979bdbb61f20a40d6fffdb42abae5bb.ctex"
+uid="uid://jjddgvcue1tf"
+path="res://.godot/imported/spellcast.png-7ad66cb4d4217b85597d8cc1b9c42c75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/healthbar_full.png"
-dest_files=["res://.godot/imported/healthbar_full.png-1979bdbb61f20a40d6fffdb42abae5bb.ctex"]
+source_file="res://Assets/Esqueleto/standard/spellcast.png"
+dest_files=["res://.godot/imported/spellcast.png-7ad66cb4d4217b85597d8cc1b9c42c75.ctex"]
 
 [params]
 

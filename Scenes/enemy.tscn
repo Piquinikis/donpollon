@@ -296,7 +296,7 @@ script = ExtResource("1_mo1ky")
 position = Vector2(0.9999995, 0.9999995)
 scale = Vector2(0.34375006, 0.34375006)
 sprite_frames = SubResource("SpriteFrames_bxqtm")
-animation = &"Death_E"
+animation = &"Hurt_E"
 autoplay = "Idle_E"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2103139405]

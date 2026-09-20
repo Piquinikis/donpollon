@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dvrrb15ttkjpf"]
+
+[ext_resource type="Texture2D" uid="uid://clhjf3oyfosmn" path="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/lava_frame1.png" id="1_0rruu"]
+[ext_resource type="Texture2D" uid="uid://dgt7pa5tekp25" path="res://Assets/fourSeasonsPlatformer_ [tileset, version 2.0]/lava_frame2.png" id="2_tsycb"]
+[ext_resource type="Script" uid="uid://1t2oee5xkqbb" path="res://Scripts/lava_area_2d.gd" id="3_tsycb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_666hc"]
+atlas = ExtResource("1_0rruu")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qekas"]
+atlas = ExtResource("2_tsycb")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bxqtm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_666hc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qekas")
+}],
+"loop": 1,
+"name": &"Movement",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxqtm"]
+size = Vector2(48, 59)
+
+[node name="Lava" type="AnimatedSprite2D" unique_id=2139688901]
+sprite_frames = SubResource("SpriteFrames_bxqtm")
+animation = &"Movement"
+autoplay = "Movement"
+frame_progress = 0.7639086
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1625554639]
+script = ExtResource("3_tsycb")
+
+[node name="Timer" type="Timer" parent="Area2D" unique_id=1939595736]
+wait_time = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=642652149]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_bxqtm")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
